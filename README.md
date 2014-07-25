@@ -72,13 +72,13 @@ libs that Ceres depends on.
 
 File Formats
 ------------
-Running the SfM Init pipeline in scripts/eccv_demo.py requires several files 
+Running the SfM Init pipeline in `scripts/eccv_demo.py` requires several files 
 describing reconstructed two view models.
 
 Input files:
 
 *   EGs.txt: Two-image models are listed in this file, one per line. The format 
-    is: <i> <j> <Rij> <tij> where i and j are camera indices, Rij is a row-major 
+    is: `<i> <j> <Rij> <tij>` where i and j are camera indices, Rij is a row-major 
     pairwise rotation matrix, and t is the position of camera j in camera i's 
     coordinate system. If Ri and Rj are the rotation matrices of cameras i and 
     j (world-to-camera maps) then in the absence of noise Rij = Ri * Rj', ie
@@ -91,28 +91,28 @@ Input files:
     image. Each image starts with a header, followed by a row for each key in 
     that image. The header contains the number of keys in the image, the focal 
     length in pixels, and the principal points (half the width and height). 
-    Keys are given as <key number> <x> <y> <ignore0> <ignore1> <R> <G> <B> where
+    Keys are given as `<key number> <x> <y> <ignore0> <ignore1> <R> <G> <B>` where
     R,G,B are a sampled rgb color. The keys are numbered sequentially.
 *   tracks.txt: This describes which features in the images have been matched 
     into a track. The first line is the number of tracks, and then each 
-    following line is a single track with format: N <img1> <feature1> ... <imgN>
-    <featureN>
+    following line is a single track with format: `N <img1> <feature1> ... <imgN>
+    <featureN>`
 
 Output formats:
 
 *   prob.txt: SfM Init reads and writes translations problems as edge lists. A
-    translations problem file has the format: <i> <j> <tij> where tij is a unit 
+    translations problem file has the format: `<i> <j> <tij>` where tij is a unit 
     vector pointing from node i to node j.
 *   soln.txt: SfM Init reads and writes solutions to translations problems as a
-   vertex list. Each line is <i> <Xi> where Xi is a 3-vector.
+    vertex list. Each line is `<i> <Xi>` where Xi is a 3-vector.
 *   rots.txt: SfM Init reads and writes global rotations solutions as a vertex 
-    list: <i> <Ri>, where Ri is a 3-by-3 rotation matrix written row major.
+    list: `<i> <Ri>`, where Ri is a 3-by-3 rotation matrix written row major.
 
 Other included files:
 
 *   list.txt: a list of all of the images in a reconstruction, as well as image
-    focal lengths in pixels. The format per line is <image name> 0 <focal 
-    length>, although when the focal length is unknown the latter two fields are
+    focal lengths in pixels. The format per line is `<image name> 0 <focal 
+    length>`, although when the focal length is unknown the latter two fields are
     omitted. SfM Init ignores photos with unknown focal length. The line number
     of an image in this file is its identifying index in the rest of the 
     toolkit.
