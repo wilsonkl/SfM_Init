@@ -10,6 +10,7 @@ Introduction:
 SfM Init is a toolkit for solving some parts of a global Stucture from Motion
 pipeline. Such a pipeline would typically reconstruct the 3D (sparse) geometry
 of some scene given many photos with the following steps:
+
 1. Feature Detection
 2. Feature Matching
 3. Two View Model Estimation
@@ -73,6 +74,7 @@ File Formats
 ------------
 Running the SfM Init pipeline in scripts/eccv_demo.py requires several files 
 describing reconstructed two view models.
+
 1.  list.txt: a list of all of the images in a reconstruction, as well as image
     focal lengths in pixels. The format per line is <image name> 0 <focal 
     length>, although when the focal length is unknown the latter two fields are
