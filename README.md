@@ -22,14 +22,14 @@ SfM Init goes from pairwise geometry to a good guess of global geometry, which
 is then the initialization to bundle adjustment. SfM Init does not ship with 
 a system for computing pairwise models or with a bundle adjustor. 
 
-SfM Init uses the excellent Rotations Graph Averaging package by Chatterjee and
-Govindu [2] (see below for link). This is available from their project webpage. 
+SfM Init uses the excellent [Rotations Graph Averaging]( http://www.ee.iisc.ernet.in/labs/cvl/research/efficient-and-robust-large-scale-rotation-averaging/)
+package by Chatterjee and Govindu [2]. This is available from their project webpage. 
 SfM Init only provides wrappers to call this code.
 
 Conditions of Use
 -----------------
 SfM Init is distributed under a Simplified BSD / 2-clause license. If you use 
-SfMInit for a publication, please cite the following paper:
+SfM Init for a publication, please cite the following paper:
 
 Kyle Wilson and Noah Snavely. Robust Global Translations with 1DSfM. ECCV 2104.
 
@@ -44,9 +44,8 @@ code, as well 1DSfM translations problem outlier detection and a chordal
 distance based translations solver.
 
 Examples of how to use SfM Init are in the scripts directory. In particular, 
-scripts/eccv_demo.py shows how to run all the steps of the pipeline described in 
-[1] on the datasets provided with that paper at 
-www.cs.cornell.edu/projects/1DSfM.
+`scripts/eccv_demo.py` shows how to run all the steps of the pipeline described in 
+[1] on the datasets provided at the [1DSfM project page](www.cs.cornell.edu/projects/1DSfM).
 
 Before You Begin
 ----------------
@@ -54,11 +53,11 @@ SfM Init is python based, and depends on the following standard python packages
 --- python 2.7, numpy, and scipy. Additionally, to compile the C++ numeric 
 routines, it requires cython. 
 
-The translations solver requires the Ceres Solver nonlinear least squares 
-package available at http://ceres-solver.org.
+The translations solver requires the [Ceres Solver](http://ceres-solver.org) 
+nonlinear least squares package.
 
-Chatterjee and Govindu's rotations averaging code can be found at their project
-page: http://www.ee.iisc.ernet.in/labs/cvl/research/efficient-and-robust-large-scale-rotation-averaging/
+Chatterjee and Govindu's rotations averaging code can be found at their [project
+page](http://www.ee.iisc.ernet.in/labs/cvl/research/efficient-and-robust-large-scale-rotation-averaging/).
 Unzip the contents of this tar file into the rotsolver directory.
 
 Finally, to compile the numerics rountines, run the following from SfM Init's 
@@ -67,7 +66,7 @@ root directory:
     > python setup.py build_ext --inplace
 
 If this fails, check the compile and link paths in setup.py to be sure that 
-cython can see the Ceres include and lib files, as well as the SuiteSparse 
+cython can see the Ceres include and lib files, as well as Eigen and the SuiteSparse 
 libs that Ceres depends on.
 
 File Formats
