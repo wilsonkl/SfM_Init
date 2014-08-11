@@ -72,28 +72,33 @@ libs that Ceres depends on.
 File Formats
 ------------
 Running the SfM Init pipeline in `scripts/eccv_demo.py` requires several files 
-describing reconstructed two view models.
+describing reconstructed two view models. Our datasets are available on our [project
+page](www.cs.cornell.edu/projects/1DSfM). Note that the photos and data files are 
+distributed separately. The dataset files describe a single connected component, but
+all images related to each Landmark are given, in case these are useful in another 
+context.
 
 Input files:
 
+*   cc.txt: This is a list of camera indices, one per line, specifying which 
+    images to reconstruct. These form a single connected component of EGs. 
 *   EGs.txt: Two-image models are listed in this file, one per line. The format 
     is: `<i> <j> <Rij> <tij>` where i and j are camera indices, Rij is a row-major 
     pairwise rotation matrix, and t is the position of camera j in camera i's 
     coordinate system. If Ri and Rj are the rotation matrices of cameras i and 
     j (world-to-camera maps) then in the absence of noise Rij = Ri * Rj', ie
     Rij is the pose of camera j in camera i's coordinate system (where a pose
-    is the transpose of a rotation matrix, a camera-to-world map).
-*   cc.txt: This is a list of camera indices, one per line, specifying which 
-    images to reconstruct. These should form a single connected component of 
-    EGs. 
+    is the transpose of a rotation matrix, a camera-to-world map). All of these 
+    EGs are within the connected component.
 *   coords.txt: This is a summary of the local image features found in each 
-    image. Each image starts with a header, followed by a row for each key in 
-    that image. The header contains the number of keys in the image, the focal 
-    length in pixels, and the principal points (half the width and height). 
-    Keys are given as `<key number> <x> <y> <ignore0> <ignore1> <R> <G> <B>` where
-    R,G,B are a sampled rgb color. The keys are numbered sequentially.
-*   tracks.txt: This describes which features in the images have been matched 
-    into a track. The first line is the number of tracks, and then each 
+    image in the connected component. Each image starts with a header, followed 
+    by a row for each key in that image. The header contains the number of keys 
+    in the image, the focal length in pixels, and the principal points (half the 
+    width and height). Keys are given as 
+    `<key number> <x> <y> <ignore0> <ignore1> <R> <G> <B>` where R,G,B are a 
+    sampled rgb color. The keys are numbered sequentially.
+*   tracks.txt: This describes which features in the images in the connected 
+    component have been matched into a track. The first line is the number of tracks, and then each 
     following line is a single track with format: `N <img1> <feature1> ... <imgN>
     <featureN>`
 
@@ -109,16 +114,19 @@ Output formats:
 
 Other included files:
 
-*   list.txt: a list of all of the images in a reconstruction, as well as image
+*   list.txt: a list of all of the images in a dataset, as well as image
     focal lengths in pixels. The format per line is `<image name> 0 <focal 
     length>`, although when the focal length is unknown the latter two fields are
     omitted. SfM Init ignores photos with unknown focal length. The line number
     of an image in this file is its identifying index in the rest of the 
-    toolkit.
-*   bundle.out: This is a reconstruction of the same component of the scene (and
-    based on the same tracks and two-image models) produced by bundler [3]. This
+    toolkit. (Note that this list typically includes many more images than are in
+    connected component supplied above.)
+*   bundle.out: This is a reconstruction of approximately the same component of 
+    the dataset which is described by the other files. Do to differences in the
+    reconstruction method, it may have a few extra images, or fail to reconstruct 
+    some images in the connected component. This reconstruction is made with [3], and
     is provided for comparison purposes. See the bundler manual for details 
-    about this format: http://www.cs.cornell.edu/~snavely/bundler
+    about the file format: http://www.cs.cornell.edu/~snavely/bundler
 
 Contact
 -------
