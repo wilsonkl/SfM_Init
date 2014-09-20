@@ -131,7 +131,7 @@ class Coords(object):
                 else:
                     px = float(re.search('px = ' + re_f, line).group(1))
                     py = float(re.search('py = ' + re_f, line).group(1))
-                    dims = (px, py)
+                    dims = (2*px, 2*py)
 
 
                 # read the body lines to this block
