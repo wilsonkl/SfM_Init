@@ -31,7 +31,7 @@ Conditions of Use
 SfM Init is distributed under a Simplified BSD / 2-clause license. If you use 
 SfM Init for a publication, please cite the following paper:
 
-Kyle Wilson and Noah Snavely. Robust Global Translations with 1DSfM. ECCV 2104.
+Kyle Wilson and Noah Snavely. Robust Global Translations with 1DSfM. ECCV 2014.
 
 What's Included
 ---------------
@@ -136,7 +136,7 @@ or bug reports.
 References
 ----------
 [1] Kyle Wilson and Noah Snavely. Robust Global Translations with 1DSfM. ECCV 
-2104.
+2014.
 
 [2] Avishek Chatterjee and Venu Madhav Govindu. Efficient and Robust Large-Scale
 Rotation Averaging. ICCV 2013.
