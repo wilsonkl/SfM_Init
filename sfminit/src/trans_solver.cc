@@ -108,14 +108,14 @@ reindex_problem(int* edges, int num_edges, std::vector<int> &reindex_lookup) {
 
     reindex_lookup.clear();
 
-    // get the unique set of notes
+    // get the unique set of nodes
     std::set<int> nodes;
     for (int i=0; i<2*num_edges; ++i)
         nodes.insert(edges[i]);
 
     std::map<int, int> reindexing_key;
 
-    // iterator through them and assign a new name to each vertex
+    // iterator through them and assign a new Id to each vertex
     std::set<int>::const_iterator it;
     int n=0;
     for (it = nodes.begin(); it != nodes.end(); ++it) {
