@@ -85,6 +85,7 @@ void solve_translations_problem(
     }
 
     delete[] _edges;
+    delete[] x;
 }
 
 template <typename T>
