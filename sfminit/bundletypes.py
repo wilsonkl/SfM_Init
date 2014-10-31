@@ -422,7 +422,7 @@ class Bundle(object):
             ind: length n numpy int array of camera indices
             R: n-by-3-by-3 numpy array of camera rotation matrices
         """
-        n = self.nActiveCams()
+        n = self.num_active_cameras()
         ind = np.zeros(n)
         R = np.zeros((n,3,3))
         ptr = 0
@@ -440,7 +440,7 @@ class Bundle(object):
             ind: length n numpy int array of camera indices
             X: n-by-3 numpy array of camera locations (world xyz coords)
         """
-        n = self.nActiveCams()
+        n = self.num_active_cameras()
         ind = np.zeros(n)
         X = np.zeros((n,3))
         ptr = 0
