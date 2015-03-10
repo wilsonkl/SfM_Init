@@ -27,6 +27,22 @@ def indices_to_direct(ind, data):
     member[ind] = True
     return direct, member
 
+def txSift2Bundler(ptSift, imageDims):
+    """
+    Convert from David Lowe's (Matlab) image coordinates to Noah
+    Snavely's image coordinates. Given (X,Y) in Sift coords and
+    image dims (width, height), compute (x,y) in bundler coords.
+    SIFT: the center of the upper-left pixel is (1,1), +X points
+        right and +Y points down
+    Bundler: the center of the image is (0,0), +X points right
+        and +Y points up
+    """
+    sx,sy = ptSift
+    w,h = imageDims
+    bx = sx - 0.5 * (w+1);
+    by = 0.5 * (h+1) - sy;
+    return (bx, by)
+
 def rand_S2():
     """
     Return a 3x1 vector chosen uniformily at random in the sphere S(2).
@@ -40,6 +56,23 @@ def rand_S2():
     y[1] = np.sqrt(1-u*u) * np.sin(t)
     y[2] = u
     return y
+
+def SO3_geodesic_norm(R):
+    """
+    Return the angle of the rotation R.
+    R is a 3-by-3 numpy array.
+    """
+    assert R.shape == (3,3)
+    return np.arccos(np.clip((np.trace(R) - 1.0)/2.0, -1.0, 1.0))
+
+def SO3_geodesic_metric(R0, R1):
+    """
+    Return the angle of the rotation from R0 to R1.
+    R0 and R1 are 3-by-3 numpy arrays.
+    """
+    assert R0.shape == (3,3) and R1.shape == (3,3)
+    R_delta = np.dot(R0, R1.T)
+    return SO3_geodesic_norm(R_delta)
 
 def rand_noise_rotmat(sigma):
     v = np.random.rand(3,1)

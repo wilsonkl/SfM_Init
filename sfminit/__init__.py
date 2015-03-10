@@ -14,6 +14,6 @@ from .twoview import ModelList
 
 from .rotsolver import solve_global_rotations
 
-from .utils import indices_to_direct
+from .utils import indices_to_direct, SO3_geodesic_norm, SO3_geodesic_metric
 
 from .hornsmethod import robust_horn

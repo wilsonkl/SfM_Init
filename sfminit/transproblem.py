@@ -3,7 +3,7 @@ from .bundletypes import Bundle
 from .sfminittypes import (read_trans_prob_file, read_edge_weight_file,
     write_trans_prob_file, write_edge_weight_file)
 from .hornsmethod import robust_horn
-from .utils import normalize_rows, indices_to_direct
+from .utils import normalize_rows, indices_to_direct, txSift2Bundler
 from ._wrapper_transsolver import solve_trans_problem
 
 class TransProblem(object):
@@ -57,7 +57,7 @@ class TransProblem(object):
         """
         return solve_trans_problem(self, **kwargs)
 
-    def get_matched_subproblems(self, other): 
+    def get_matched_subproblems(self, other):
 
         # flip and sort all edges and permutations
         edgesA = np.array([e if e[0]<e[1] else (e[1],e[0]) for e in self.edges ])
@@ -70,7 +70,7 @@ class TransProblem(object):
         posesB = np.array([p if e[0]<e[1] else -p for (p,e) in zip(other.poses, other.edges) ])
         perm = np.argsort(edgesB.view('i8,i8'), order=['f0','f1'], axis=0)
         edgesB = edgesB[perm,:]
-        posesB = posesB[perm,:] 
+        posesB = posesB[perm,:]
 
         # walk through the sorted lists together
         nA = len(posesA)
@@ -138,7 +138,7 @@ class TransProblem(object):
         poses_new = []
         weights_new = []
         for w, (i,j) in zip(self.weights, self.edges):
-            if (i < len(bundle.cameras) and bundle.cameras[i].initialized() and 
+            if (i < len(bundle.cameras) and bundle.cameras[i].initialized() and
                 j < len(bundle.cameras) and bundle.cameras[j].initialized() ):
                 edges_new.append((i,j))
                 poses_new.append(bundle.cameras[j].location() - bundle.cameras[i].location())
@@ -152,7 +152,7 @@ class TransProblem(object):
         probA, probB = self.get_matched_subproblems(other)
         (R, _, _, _) = robust_horn(probA.poses, probB.poses)
         self.poses = np.dot(self.poses, R)
-        
+
 
     def compare_to(self, other, distance='geodesic'):
         """
@@ -170,11 +170,11 @@ class TransProblem(object):
         elif distance == 'chordal':
             return np.sqrt(np.sum(np.square(posesA - posesB), axis=1))
 
-    def add_track_edges(self, tracks, coords, global_rot_ids, global_rots, 
+    def add_track_edges(self, tracks, coords, global_rot_ids, global_rots,
             k=6, min_point_size=2, cp_edge_relative_weight=0.5):
         subset = pick_track_subset(tracks, k)
         max_image = np.max(self.edges)
-        num_images = max_image + 1 
+        num_images = max_image + 1
 
         R, R_mask = indices_to_direct(global_rot_ids, global_rots)
 
@@ -183,17 +183,22 @@ class TransProblem(object):
         edges = []
         for i in subset:
             t = tracks.tracks[i]
-           
-            # add an edge to the problem for every time a camera sees a 
+
+            # add an edge to the problem for every time a camera sees a
             # track in the subset. Watch out for missing necessary data.
             new_edges = []
-            new_poses = [] 
+            new_poses = []
             for img, feature_num in t:
 
                 if (img < num_images and img<len(R_mask) and R_mask[img]
                     and coords[img] and coords[img].fl > 0.0):
-                    
-                    (x,y) = coords[img].keys[feature_num]
+
+                    # coordinate conversion: coords.txt files use SIFT
+                    # conventions, but SfM_Init uses bundler conventions
+                    ptSift = coords[img].keys[feature_num]
+                    imageDims = coords[img].dims
+                    (x,y) = txSift2Bundler(ptSift, imageDims)
+
                     t_local = np.array([x,y,-coords[img].fl])
                     t_local /= np.sqrt(np.sum(np.square(t_local)))
                     new_poses.append(np.dot(R[img].T, t_local))
@@ -231,7 +236,7 @@ def pick_track_subset(tracks, k):
     """
     Pick a subset of tracks which cover all the images in the full tracks at least
     k times. Use a greedy algorithm to pick the subset.
-    """ 
+    """
     max_image = np.max([np.max(t[:,0]) for t in tracks.tracks])
     num_images = max_image + 1
     subset = set()
@@ -264,5 +269,3 @@ def pick_track_subset(tracks, k):
             remaining_cover[img] = remaining_cover[img]-1 if remaining_cover[img]>0 else 0
 
     return subset
-
-

@@ -174,7 +174,7 @@ class Tracks(object):
     @classmethod
     def from_models(cls, models, min_track_length=2, max_track_length=None):
         """
-        return a Tracks object describing the tracks in 
+        return a Tracks object describing the tracks in
         a given list of models.
         """
         if max_track_length is None:
@@ -318,8 +318,8 @@ class Camera(object):
         """
         P = np.dot(self.R, X) + self.t
         p = -1*P[0:2]/P[2]
-        norm_p = np.linalg.norm(p)
-        r = 1 + self.k1 * norm_p + self.k2 * norm_p * norm_p
+        norm_p2 = np.sum(np.square(p))
+        r = 1 + self.k1 * norm_p2 + self.k2 * norm_p2 * norm_p2
         return self.f * r * p
 
     def viewing_direction(self):
