@@ -47,8 +47,8 @@ class ModelList(object):
             if m.i < len(rot_bool) and m.j < len(rot_bool) and rot_bool[m.i] and rot_bool[m.j]:
                 for pt in m.points:
                     pt.X = np.dot(rots[m.i], pt.X - m.Xi)
-                m.Xi = np.zeros((3,1))
-                m.Xj = np.dot(m.Ri.T, m.tij())
+                m.Xi = np.dot(rots[m.i].T, m.Xi)
+                m.Xj = np.dot(rots[m.i].T, m.Xj)
                 m.Ri = rots[m.i]
                 m.Rj = rots[m.j]
 
