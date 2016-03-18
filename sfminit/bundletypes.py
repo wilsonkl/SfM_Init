@@ -103,7 +103,7 @@ class Coords(object):
         # regex expressions for float, int, and string
         import re
         re_d = r'([-+]?\d+)'
-        re_f = r'([-+]?(\d+(\.\d*))?)'
+        re_f = r'([-+]?(\d+(\.\d*))+)'
         re_s = r'([^\s,]*)'
 
         indices = []
