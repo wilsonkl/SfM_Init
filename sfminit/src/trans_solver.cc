@@ -63,7 +63,7 @@ void solve_translations_problem(
 	// solve
     Solver::Options options;
     options.num_threads = 16;
-    options.num_linear_solver_threads = 16;
+    // options.num_linear_solver_threads = 16; // deprecated with ceres-solver 2.0
     //options.minimizer_progress_to_stdout = true;
     options.max_num_iterations = max_iterations;
     options.function_tolerance = function_tolerance;
