@@ -59,7 +59,7 @@ The translations solver requires the [Ceres Solver](http://ceres-solver.org)
 nonlinear least squares package.
 
 Chatterjee and Govindu's rotations averaging code can be found at their [project
-page](http://www.ee.iisc.ernet.in/labs/cvl/research/efficient-and-robust-large-scale-rotation-averaging/).
+page](http://www.ee.iisc.ac.in/labs/cvl/research/rotaveraging/).
 Unzip the contents of this tar file into the rotsolver directory.
 
 Finally, to compile the numerics routines, run the following from SfM Init's
