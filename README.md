@@ -22,7 +22,7 @@ SfM Init goes from pairwise geometry to a good guess of global geometry, which
 is then the initialization to bundle adjustment. SfM Init does not ship with
 a system for computing pairwise models or with a bundle adjustor.
 
-SfM Init uses the excellent [Rotations Graph Averaging]( http://www.ee.iisc.ernet.in/labs/cvl/research/efficient-and-robust-large-scale-rotation-averaging/)
+SfM Init uses the excellent [Rotations Graph Averaging](http://www.ee.iisc.ac.in/labs/cvl/research/rotaveraging/)
 package by Chatterjee and Govindu [2]. This is available from their project webpage.
 SfM Init only provides wrappers to call this code.
 
@@ -45,7 +45,7 @@ distance based translations solver.
 
 Examples of how to use SfM Init are in the scripts directory. In particular,
 `scripts/eccv_demo.py` shows how to run all the steps of the pipeline described in
-[1] on the datasets provided at the [1DSfM project page](www.cs.cornell.edu/projects/1DSfM).
+[1] on the datasets provided at the [1DSfM project page](https://research.cs.cornell.edu/1dsfm/).
 Look in `scripts/coords_demo.py` for some examples of how the coordinate systems
 in 1DSfM are used.
 
@@ -78,7 +78,7 @@ File Formats
 ------------
 Running the SfM Init pipeline in `scripts/eccv_demo.py` requires several files
 describing reconstructed two view models. Our datasets are available on our [project
-page](www.cs.cornell.edu/projects/1DSfM). Note that the photos and data files are
+page](https://research.cs.cornell.edu/1dsfm/). Note that the photos and data files are
 distributed separately. The dataset files describe a single connected component, but
 all images related to each Landmark are given, in case these are useful in another
 context. If the following descriptions are insufficient, please also look at
