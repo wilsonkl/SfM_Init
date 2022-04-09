@@ -24,7 +24,10 @@ a system for computing pairwise models or with a bundle adjustor.
 
 SfM Init uses the excellent [Rotations Graph Averaging](http://www.ee.iisc.ac.in/labs/cvl/research/rotaveraging/)
 package by Chatterjee and Govindu [2]. This is available from their project webpage.
-SfM Init only provides wrappers to call this code.
+SfM Init only provides wrappers to call this code. \[*Update: this code is temporarily 
+unavailable from the authors. Venu Govindu has given me permission to temporarily
+distribute it [here](https://www.dropbox.com/s/kojiq7laz1nr3th/SO3GraphAveraging.tar?dl=0)
+until their server problem is fixed.*\]
 
 Conditions of Use
 -----------------
